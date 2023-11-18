@@ -46,6 +46,9 @@ def getuser(request):
     email = data.get('email')
 
     try:
+        if '@acropolis.in' not in email:
+            api_response = responsegenerator(status=status.HTTP_400_BAD_REQUEST,message='Invalid Email')
+            return Response(api_response)
         # Use get_object_or_404 to get the user or raise a 404 if not found
         user = get_object_or_404(User, email=email)
 
